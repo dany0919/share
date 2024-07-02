@@ -1,8 +1,6 @@
 name: Share Package
 
-on:
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   build:
