@@ -41,9 +41,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ApiResponse<?>> handleAllUncaughtException(Exception ex, WebRequest request) {
+    public ResponseEntity<ApiResponse<?>> handleAllUncaughtException(Exception ex) {
         ApiError apiError = new ApiError("An unexpected error occurred.",
                 List.of(new ErrorField("internal", "Internal server error.")));
+        return ResponseEntity.internalServerError().body(ApiResponse.fail(apiError));
+    }
+    @ExceptionHandler({ReadExcelException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ApiResponse<?>> handleReadExcelException(ReadExcelException ex) {
+        ApiError apiError = new ApiError(ex.getDomainErrorMessage().getReasonPhrase(),
+                List.of(ex.getErrorField()));
+        return ResponseEntity.internalServerError().body(ApiResponse.fail(apiError));
+    }
+    @ExceptionHandler(EmptySheetException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ApiResponse<?>> handleReadExcelException(EmptySheetException ex) {
+        ApiError apiError = new ApiError(ex.getDomainErrorMessage().getReasonPhrase(),
+                List.of(ex.getErrorField()));
         return ResponseEntity.internalServerError().body(ApiResponse.fail(apiError));
     }
 

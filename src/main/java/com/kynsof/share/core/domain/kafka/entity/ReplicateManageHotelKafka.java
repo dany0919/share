@@ -1,6 +1,5 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,10 +11,12 @@ import java.util.UUID;
 @Setter
 @Getter
 public class ReplicateManageHotelKafka implements Serializable {
-    @JsonProperty("id")
     private UUID id;
-    @JsonProperty("code")
     private String code;
-    @JsonProperty("name")
     private String name;
+    private Boolean isApplyByVCC;
+    private UUID manageTradingCompany;
+    private String status;
+
+    private Boolean isVirtual;
 }

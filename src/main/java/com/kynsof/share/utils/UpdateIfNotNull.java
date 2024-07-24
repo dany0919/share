@@ -98,6 +98,16 @@ public class UpdateIfNotNull {
         return false;
     }
 
+    public static boolean updateDouble(Consumer<Double> setter, Double newValue, Consumer<Integer> update) {
+        if (newValue != null) {
+            setter.accept(newValue);
+            update.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
     public static boolean updateInteger(Consumer<Integer> setter, Integer newValue, Integer oldValue, Consumer<Integer> update) {
         if (newValue != null && !newValue.equals(oldValue)) {
             setter.accept(newValue);
